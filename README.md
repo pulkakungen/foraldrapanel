@@ -57,3 +57,26 @@ Efter det behöver dina gamla bokmärken till `/admin/status` och `/report` ha
 Panelen läser bara. Den enda skrivande funktionen är att skicka ett meddelande.
 Att dra tillbaka poäng kräver en kommandokö i varje app, det är nästa steg och
 är inte byggt än.
+
+## Dagsloggen till Google Kalkylark
+
+Varje app kan skriva dagens rad till ett kalkylark 23.58, en flik per app.
+
+1. Öppna arket, Tillägg, Apps Script, och klistra in hela
+   `tools/sheets-script.gs` i Code.gs.
+2. Byt ut `TOKEN` högst upp mot ett eget ord.
+3. Distribuera, Ny distribution, typ webbapp, kör som dig själv, åtkomst
+   för alla. Kopiera webbadressen.
+4. I varje apps `cloudflare-worker`-mapp:
+
+```
+npx wrangler secret put SHEET_URL     # adressen från steg 3
+npx wrangler secret put SHEET_TOKEN   # samma ord som i steg 2
+npm run deploy
+```
+
+Utan de två hemligheterna händer ingenting, apparna fungerar precis som
+förut. Skickas samma dag igen skrivs raden över i stället för att hamna
+dubbelt, så det går att köra om en dag.
+
+Frallan har ingen server och är inte med.
