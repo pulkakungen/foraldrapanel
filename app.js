@@ -216,6 +216,14 @@ function renderCard(app) {
     a.rel = "noopener";
     return a;
   };
+  // Appar som har en egen dagsvy att rätta i skickar med adressen till den.
+  if (d.panelUrl) {
+    const a = el("a", "primary", "Rätta dagar");
+    a.href = d.panelUrl;
+    a.target = "_blank";
+    a.rel = "noopener";
+    links.append(a);
+  }
   links.append(lank("Status", "/admin/status"));
   if (app.report) links.append(lank("Rapport", "/report"));
   card.append(links);

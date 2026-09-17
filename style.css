@@ -292,3 +292,11 @@ input:focus, textarea:focus { outline: none; border-color: var(--c1); }
 @media (max-width: 420px) {
   .topbar { flex-direction: column; }
 }
+
+/* Knapp till en apps egen dagsvy, där uppgifter går att rätta. */
+.links a.primary {
+  background: rgba(126, 227, 167, 0.14);
+  border-color: rgba(126, 227, 167, 0.5);
+  color: #9ff0bd;
+  font-weight: 600;
+}
