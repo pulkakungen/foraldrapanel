@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Föräldrapanelen</title>
+<meta name="theme-color" content="#14161a" />
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icons/icon-192.png" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============ LÅSSKÄRM ============ -->
+<section id="screen-lock" class="screen active">
+  <form id="lock-form" class="lock-card">
+    <h1>Föräldrapanelen</h1>
+    <p class="muted">Nyckeln är densamma som workrarnas ADMIN_TOKEN. Den sparas bara i den här webbläsaren.</p>
+    <input id="key-input" type="password" autocomplete="current-password" placeholder="Nyckel" />
+    <button type="submit" class="btn-primary">Lås upp</button>
+    <p id="lock-error" class="error" hidden></p>
+  </form>
+</section>
+
+<!-- ============ PANELEN ============ -->
+<section id="screen-panel" class="screen">
+
+  <header class="topbar">
+    <div>
+      <h1>Föräldrapanelen</h1>
+      <p id="updated" class="muted small">Hämtar...</p>
+    </div>
+    <div class="topbar-actions">
+      <button id="refresh-btn" class="btn-ghost" title="Hämta om">Uppdatera</button>
+      <button id="lock-btn" class="btn-ghost" title="Glöm nyckeln på den här enheten">Lås</button>
+    </div>
+  </header>
+
+  <main id="cards" class="cards"></main>
+
+  <section class="composer">
+    <h2>Skicka ett meddelande</h2>
+    <p class="muted small">Landar som en notis på telefonen, direkt.</p>
+    <textarea id="message-text" rows="3" maxlength="180" placeholder="Skriv något kort..."></textarea>
+    <div id="message-targets" class="targets"></div>
+    <div class="composer-row">
+      <button id="send-btn" class="btn-primary">Skicka</button>
+      <span id="send-status" class="small"></span>
+    </div>
+  </section>
+
+</section>
+
+<div id="tooltip" class="tooltip" hidden></div>
+
+<script src="app.js"></script>
+</body>
+</html>
