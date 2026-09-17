@@ -14,7 +14,7 @@ for (const px of [512, 192]) {
     <svg width="${px}" height="${px}" viewBox="${view}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
       style="fill-rule:evenodd;clip-rule:evenodd">${kropp}</svg></body>`);
   await page.waitForTimeout(400);
-  await page.screenshot({ path: `/home/user/panel/icons/icon-${px}.png` });
+  await page.screenshot({ path: `/home/user/panel/icons/icon-${px}-v2.png` });
   await page.close();
 }
 await browser.close();
