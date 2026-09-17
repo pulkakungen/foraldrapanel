@@ -1,0 +1,97 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" fill="#141319"/>
+
+  <!-- håret byggs av överlappande cirklar, en per lock -->
+  <g fill="#d64a8d">
+    <circle cx="91" cy="274" r="56"/>
+    <circle cx="89" cy="224" r="56"/>
+    <circle cx="102" cy="177" r="56"/>
+    <circle cx="127" cy="135" r="56"/>
+    <circle cx="164" cy="102" r="56"/>
+    <circle cx="208" cy="81" r="56"/>
+    <circle cx="256" cy="74" r="56"/>
+    <circle cx="304" cy="81" r="56"/>
+    <circle cx="348" cy="102" r="56"/>
+    <circle cx="385" cy="135" r="56"/>
+    <circle cx="410" cy="177" r="56"/>
+    <circle cx="423" cy="224" r="56"/>
+    <circle cx="421" cy="274" r="56"/>
+    <circle cx="111" cy="211" r="50"/>
+    <circle cx="131" cy="167" r="50"/>
+    <circle cx="165" cy="131" r="50"/>
+    <circle cx="208" cy="108" r="50"/>
+    <circle cx="256" cy="100" r="50"/>
+    <circle cx="304" cy="108" r="50"/>
+    <circle cx="347" cy="131" r="50"/>
+    <circle cx="381" cy="167" r="50"/>
+    <circle cx="401" cy="211" r="50"/>
+    <circle cx="112" cy="300" r="52"/>
+    <circle cx="118" cy="352" r="46"/>
+    <circle cx="140" cy="392" r="40"/>
+    <circle cx="400" cy="300" r="52"/>
+    <circle cx="394" cy="352" r="46"/>
+    <circle cx="372" cy="392" r="40"/>
+  </g>
+
+  <!-- hals och axlar -->
+  <path d="M212 330 L300 330 L300 386 C300 400 288 410 256 410 C224 410 212 400 212 386 Z" fill="#d9a184"/>
+  <path d="M256 408 C196 408 150 438 138 480 L374 480 C362 438 316 408 256 408 Z" fill="#2b3a55"/>
+
+  <!-- ansikte -->
+  <ellipse cx="256" cy="250" rx="100" ry="114" fill="#f0c2a2"/>
+  <ellipse cx="156" cy="256" rx="15" ry="21" fill="#e8b492"/>
+  <ellipse cx="356" cy="256" rx="15" ry="21" fill="#e8b492"/>
+  <circle cx="156" cy="290" r="9" fill="#f3b23f"/>
+  <circle cx="356" cy="290" r="9" fill="#f3b23f"/>
+
+  <!-- lockarna som faller fram över pannan -->
+  <g fill="#ff7eb6">
+    <circle cx="129" cy="202" r="44"/>
+    <circle cx="145" cy="169" r="44"/>
+    <circle cx="169" cy="143" r="44"/>
+    <circle cx="201" cy="123" r="44"/>
+    <circle cx="237" cy="113" r="44"/>
+    <circle cx="275" cy="113" r="44"/>
+    <circle cx="311" cy="123" r="44"/>
+    <circle cx="343" cy="143" r="44"/>
+    <circle cx="367" cy="169" r="44"/>
+    <circle cx="383" cy="202" r="44"/>
+    <circle cx="186" cy="196" r="40"/>
+    <circle cx="232" cy="172" r="42"/>
+    <circle cx="284" cy="172" r="42"/>
+    <circle cx="328" cy="198" r="40"/>
+    <circle cx="158" cy="240" r="36"/>
+    <circle cx="356" cy="240" r="36"/>
+  </g>
+
+  <!-- ögonbryn -->
+  <path d="M198 212 q26 -13 50 -2" stroke="#7a3f5e" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <path d="M264 210 q24 -11 50 2" stroke="#7a3f5e" stroke-width="9" fill="none" stroke-linecap="round"/>
+
+  <!-- ögon, blå iris -->
+  <ellipse cx="220" cy="258" rx="15" ry="17" fill="#fdf7f3"/>
+  <ellipse cx="292" cy="258" rx="15" ry="17" fill="#fdf7f3"/>
+  <circle cx="220" cy="258" r="12" fill="#3987e5"/>
+  <circle cx="292" cy="258" r="12" fill="#3987e5"/>
+  <circle cx="220" cy="258" r="6" fill="#221c2b"/>
+  <circle cx="292" cy="258" r="6" fill="#221c2b"/>
+  <circle cx="215" cy="252" r="4.5" fill="#fff"/>
+  <circle cx="287" cy="252" r="4.5" fill="#fff"/>
+
+  <!-- runda glasögon -->
+  <g fill="none" stroke="#332c3c" stroke-width="8" stroke-linecap="round">
+    <circle cx="220" cy="258" r="40" fill="#ffffff" fill-opacity="0.1"/>
+    <circle cx="292" cy="258" r="40" fill="#ffffff" fill-opacity="0.1"/>
+    <path d="M260 254 q-4 -8 -8 0"/>
+    <path d="M180 252 L158 246"/>
+    <path d="M332 252 L354 246"/>
+  </g>
+  <path d="M200 238 q13 -11 28 -4" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.45"/>
+  <path d="M272 238 q13 -11 28 -4" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.45"/>
+
+  <!-- rouge, näsa, mun -->
+  <ellipse cx="186" cy="296" rx="19" ry="11" fill="#f09ab0" opacity="0.5"/>
+  <ellipse cx="326" cy="296" rx="19" ry="11" fill="#f09ab0" opacity="0.5"/>
+  <path d="M252 282 q8 13 -2 17" stroke="#d99b7c" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M230 316 q26 24 52 0" stroke="#b4425f" stroke-width="9" fill="none" stroke-linecap="round"/>
+</svg>
