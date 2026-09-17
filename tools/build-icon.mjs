@@ -4,7 +4,7 @@ import fs from 'fs';
 const svg = fs.readFileSync('/home/user/panel/bella.svg', 'utf8');
 // viewBox 0 0 768 768. Huvudet sitter i övre halvan, lite vänster om mitten.
 // Klipper ut huvudet ur illustrationen. Ändra värdena om bilden byts ut.
-const [cx, cy, size] = (process.argv.slice(2).length ? process.argv.slice(2) : [354, 282, 560]).map(Number);
+const [cx, cy, size] = (process.argv.slice(2).length ? process.argv.slice(2) : [360, 330, 650]).map(Number);
 const view = `${Math.round(cx - size / 2)} ${Math.round(cy - size / 2)} ${size} ${size}`;
 const kropp = svg.replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '');
 const browser = await chromium.launch();
