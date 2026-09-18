@@ -35,14 +35,12 @@ const APPS = [
     report: false
   },
   {
-    // Frallan sparar allt lokalt i barnets telefon och har ingen worker, så
-    // det finns inget att hämta här förrän den får en.
     id: "frallan",
-    child: "Frallan",
+    child: "Olle",
     app: "Frallan",
-    url: null,
+    url: "https://frallan-push.bella-sassibrass.workers.dev",
     accent: "var(--c4)",
-    report: false
+    report: true
   }
 ];
 
