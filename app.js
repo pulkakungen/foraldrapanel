@@ -245,6 +245,9 @@ function render() {
   wrap.innerHTML = "";
   APPS.forEach((a) => wrap.append(renderCard(a)));
   renderTargets();
+  datumval();
+  renderExtraTargets();
+  renderExtraList();
 }
 
 /* ---------------------------------------------------------
@@ -333,6 +336,129 @@ async function skicka() {
 }
 
 /* ---------------------------------------------------------
+   Extrauppgifter
+   Lagras i varje barns worker och hämtas av appen vid start.
+   --------------------------------------------------------- */
+function datumval() {
+  const sel = document.getElementById("extra-date");
+  if (sel.options.length) return;
+  const namn = ["söndag", "måndag", "tisdag", "onsdag", "torsdag", "fredag", "lördag"];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() + i);
+    const varde = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    const o = document.createElement("option");
+    o.value = varde;
+    o.textContent = i === 0 ? "Idag" : i === 1 ? "Imorgon" : namn[d.getDay()] + " " + d.getDate() + "/" + (d.getMonth() + 1);
+    sel.append(o);
+  }
+}
+
+function extraAppar() {
+  return APPS.filter((a) => {
+    const res = summaries[a.id];
+    return res && res.status === "ok" && res.data.supportsExtra;
+  });
+}
+
+function renderExtraTargets() {
+  const wrap = document.getElementById("extra-targets");
+  wrap.innerHTML = "";
+  const gar = extraAppar();
+  if (!gar.length) {
+    wrap.append(el("p", "muted small", "Ingen av apparna stödjer extrauppgifter än."));
+    return;
+  }
+  gar.forEach((a) => {
+    const label = el("label", "target");
+    const box = document.createElement("input");
+    box.type = "checkbox";
+    box.value = a.id;
+    label.append(box, el("span", "", a.child));
+    wrap.append(label);
+  });
+}
+
+function renderExtraList() {
+  const wrap = document.getElementById("extra-list");
+  wrap.innerHTML = "";
+  extraAppar().forEach((a) => {
+    const d = summaries[a.id].data;
+    (d.extra || []).forEach((t) => {
+      const klar = (d.tasks || []).some((x) => x.id === t.id && x.done);
+      const rad = el("div", "extra-item");
+      rad.append(
+        el("span", "", t.emoji || "⭐"),
+        el("span", "grow", t.text),
+        el("span", "who", a.child),
+        el("span", klar ? "done" : "muted small", klar ? "klar" : "väntar")
+      );
+      const bort = el("button", "", "×");
+      bort.title = "Ta bort";
+      bort.addEventListener("click", () => taBortExtra(a, t));
+      rad.append(bort);
+      wrap.append(rad);
+    });
+  });
+}
+
+async function laggTillExtra() {
+  const text = document.getElementById("extra-text").value.trim();
+  const status = document.getElementById("extra-status");
+  const valda = [...document.querySelectorAll("#extra-targets input:checked")].map((i) => i.value);
+
+  if (!text) return (status.textContent = "Skriv uppgiften först.");
+  if (!valda.length) return (status.textContent = "Välj vem den gäller.");
+
+  const btn = document.getElementById("extra-btn");
+  btn.disabled = true;
+  status.textContent = "Lägger till...";
+
+  const body = {
+    text,
+    emoji: document.getElementById("extra-emoji").value.trim() || "⭐",
+    date: document.getElementById("extra-date").value,
+    gives: document.getElementById("extra-gives").value,
+    section: "hemma"
+  };
+
+  const resultat = await Promise.all(
+    valda.map(async (id) => {
+      const app = APPS.find((a) => a.id === id);
+      try {
+        const res = await fetch(app.url + "/admin/extra", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", ...headers() },
+          body: JSON.stringify(body)
+        });
+        return { child: app.child, ok: res.ok };
+      } catch (e) {
+        return { child: app.child, ok: false };
+      }
+    })
+  );
+
+  btn.disabled = false;
+  const fel = resultat.filter((r) => !r.ok).map((r) => r.child);
+  status.textContent = fel.length ? "Gick inte för " + fel.join(", ") : "Tillagd för " + resultat.map((r) => r.child).join(", ");
+  if (!fel.length) {
+    document.getElementById("extra-text").value = "";
+    document.querySelectorAll("#extra-targets input:checked").forEach((i) => (i.checked = false));
+  }
+  setTimeout(() => (status.textContent = ""), 6000);
+  loadAll();
+}
+
+async function taBortExtra(app, task) {
+  await fetch(app.url + "/admin/extra/delete", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...headers() },
+    body: JSON.stringify({ date: task.date, id: task.id })
+  }).catch(() => {});
+  loadAll();
+}
+
+/* ---------------------------------------------------------
    Lås
    --------------------------------------------------------- */
 function showLock(fel) {
@@ -365,6 +491,7 @@ function init() {
     showLock();
   });
   document.getElementById("send-btn").addEventListener("click", skicka);
+  document.getElementById("extra-btn").addEventListener("click", laggTillExtra);
 
   // hämta om när panelen kommer fram igen, så siffrorna inte är gamla
   document.addEventListener("visibilitychange", () => {

@@ -43,6 +43,36 @@
   <main id="cards" class="cards"></main>
 
   <section class="composer">
+    <h2>Lägg till en uppgift</h2>
+    <p class="muted small">Gäller bara den dag du väljer och försvinner sedan av sig själv.</p>
+    <input id="extra-text" type="text" maxlength="80" placeholder="Till exempel: Plocka kartong i trädgården" />
+    <div class="extra-row">
+      <label class="field">
+        <span>Emoji</span>
+        <input id="extra-emoji" type="text" maxlength="4" value="⭐" />
+      </label>
+      <label class="field">
+        <span>Dag</span>
+        <select id="extra-date"></select>
+      </label>
+      <label class="field">
+        <span>Ger</span>
+        <select id="extra-gives">
+          <option value="both">Mat och kärlek</option>
+          <option value="food">Bara mat</option>
+          <option value="love">Bara kärlek</option>
+        </select>
+      </label>
+    </div>
+    <div id="extra-targets" class="targets"></div>
+    <div class="composer-row">
+      <button id="extra-btn" class="btn-primary">Lägg till</button>
+      <span id="extra-status" class="small"></span>
+    </div>
+    <div id="extra-list" class="extra-list"></div>
+  </section>
+
+  <section class="composer">
     <h2>Skicka ett meddelande</h2>
     <p class="muted small">Landar som en notis på telefonen, direkt.</p>
     <textarea id="message-text" rows="3" maxlength="180" placeholder="Skriv något kort..."></textarea>

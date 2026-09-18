@@ -300,3 +300,40 @@ input:focus, textarea:focus { outline: none; border-color: var(--c1); }
   color: #9ff0bd;
   font-weight: 600;
 }
+
+/* ---------- extrauppgifter ---------- */
+.extra-row { display: flex; gap: 10px; margin: 10px 0 12px; flex-wrap: wrap; }
+.field { display: flex; flex-direction: column; gap: 4px; font-size: 0.75rem; color: var(--text-muted); }
+.field input { width: 84px; text-align: center; }
+.field select {
+  font-family: inherit;
+  font-size: 0.95rem;
+  background: var(--surface-0);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--text-primary);
+  padding: 11px 12px;
+}
+.field select:focus { outline: none; border-color: var(--c1); }
+.extra-list { margin-top: 14px; display: flex; flex-direction: column; gap: 6px; }
+.extra-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface-0);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-size: 0.85rem;
+}
+.extra-item .who { color: var(--text-muted); font-size: 0.78rem; }
+.extra-item .grow { flex: 1; }
+.extra-item .done { color: var(--good); }
+.extra-item button {
+  background: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 2px 6px;
+}
+.extra-item button:hover { color: var(--bad); }
