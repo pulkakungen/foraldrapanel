@@ -164,8 +164,17 @@ function renderCard(app) {
   if (d.petName) chip(d.petName + (d.level ? ", nivå " + d.level : ""));
   else if (d.level) chip("Nivå " + d.level);
   if (typeof d.streak === "number") chip("Streak " + d.streak);
-  if (typeof d.hunger === "number") chip("Mat " + d.hunger + "%", d.hunger < 30 ? "warn" : "");
-  if (typeof d.happiness === "number") chip("Kärlek " + d.happiness + "%", d.happiness < 30 ? "warn" : "");
+  // Nivåerna är uppskattade från senaste synk, appen räknar ner dem i telefonen.
+  const niva = (etikett, nu, vidSynk) => {
+    if (typeof nu !== "number") return;
+    const c = el("span", "pill" + (nu < 30 ? " warn" : ""), etikett + " " + nu + "%");
+    if (typeof vidSynk === "number" && vidSynk !== nu) {
+      c.title = "Uppskattat nu. Var " + vidSynk + "% vid senaste synk.";
+    }
+    stats.append(c);
+  };
+  niva("Mat", d.hunger, d.hungerAtSync);
+  niva("Kärlek", d.happiness, d.happinessAtSync);
   if (d.allDoneToday) chip("Allt klart idag", "on");
   card.append(stats);
 
