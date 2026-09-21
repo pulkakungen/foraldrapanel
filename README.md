@@ -82,3 +82,9 @@ dubbelt, så det går att köra om en dag.
 Alla fyra apparna har ett demoläge, som nås med `?demo=1` i adressen.
 Det använder en egen sparning, synkar inte och rör inte notiserna, så du kan
 klicka runt utan att påverka barnets riktiga dag.
+
+## Cache
+
+`index.html` laddar `app.js?v=N` och `style.css?v=N`. Höj siffran när du ändrat
+någon av dem, annars kan telefoner och webbläsare visa den gamla versionen i upp
+till tio minuter efter en publicering.
