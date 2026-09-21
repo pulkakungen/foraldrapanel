@@ -14,7 +14,7 @@ nyckeln sparas bara i din webbläsare.
 * Nivå, streak, mat och kärlek
 * De senaste fjorton dagarna som en stapel per dag, hovra för detaljer
 * Hela dagens lista, utfällbar
-* Länkar till statussidan och rapporten
+* Länkar till demoläget, statussidan och rapporten
 
 Längst ner skriver du ett meddelande, kryssar i vilka det ska till och skickar.
 Det landar som en notis på deras telefoner direkt.
@@ -79,4 +79,6 @@ Utan de två hemligheterna händer ingenting, apparna fungerar precis som
 förut. Skickas samma dag igen skrivs raden över i stället för att hamna
 dubbelt, så det går att köra om en dag.
 
-Frallan har ingen server och är inte med.
+Alla fyra apparna har ett demoläge, som nås med `?demo=1` i adressen.
+Det använder en egen sparning, synkar inte och rör inte notiserna, så du kan
+klicka runt utan att påverka barnets riktiga dag.

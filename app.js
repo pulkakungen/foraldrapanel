@@ -15,6 +15,7 @@ const APPS = [
     child: "Sassa",
     app: "Sassibrass",
     url: "https://sassibrass-push.bella-sassibrass.workers.dev",
+    site: "https://pulkakungen.github.io/Sassibrass/",
     accent: "var(--c1)",
     report: true
   },
@@ -23,6 +24,7 @@ const APPS = [
     child: "Samuel",
     app: "Sameluren",
     url: "https://sameluren-push.bella-sassibrass.workers.dev",
+    site: "https://pulkakungen.github.io/sameluren/",
     accent: "var(--c2)",
     report: true
   },
@@ -31,6 +33,7 @@ const APPS = [
     child: "Emil",
     app: "Mrs Raccoon",
     url: "https://mrs-raccoon-push.bella-sassibrass.workers.dev",
+    site: "https://pulkakungen.github.io/emil/",
     accent: "var(--c3)",
     report: false
   },
@@ -39,6 +42,7 @@ const APPS = [
     child: "Olle",
     app: "Frallan",
     url: "https://frallan-push.bella-sassibrass.workers.dev",
+    site: "https://pulkakungen.github.io/frallan/",
     accent: "var(--c4)",
     report: true
   }
@@ -230,6 +234,14 @@ function renderCard(app) {
     a.target = "_blank";
     a.rel = "noopener";
     links.append(a);
+  }
+  if (app.site) {
+    const demo = el("a", "", "Demo");
+    demo.href = app.site + "?demo=1";
+    demo.target = "_blank";
+    demo.rel = "noopener";
+    demo.title = "Öppnar appen i demoläge, med egen sparning som inte rör barnets";
+    links.append(demo);
   }
   links.append(lank("Status", "/admin/status"));
   if (app.report) links.append(lank("Rapport", "/report"));
