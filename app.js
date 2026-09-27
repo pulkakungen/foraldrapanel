@@ -424,12 +424,13 @@ async function laggTillExtra() {
   btn.disabled = true;
   status.textContent = "Lägger till...";
 
+  // Ingen sektion skickas med. Apparna har olika indelning och varje app
+  // vet själv var en engångsuppgift hör hemma.
   const body = {
     text,
     emoji: document.getElementById("extra-emoji").value.trim() || "⭐",
     date: document.getElementById("extra-date").value,
-    gives: document.getElementById("extra-gives").value,
-    section: "hemma"
+    gives: document.getElementById("extra-gives").value
   };
 
   const resultat = await Promise.all(
