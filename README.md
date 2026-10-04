@@ -88,3 +88,14 @@ klicka runt utan att påverka barnets riktiga dag.
 `index.html` laddar `app.js?v=N` och `style.css?v=N`. Höj siffran när du ändrat
 någon av dem, annars kan telefoner och webbläsare visa den gamla versionen i upp
 till tio minuter efter en publicering.
+
+## Mr. Raccoon, panelen i miniatyr
+
+`mr-raccoon/` är en avskalad panel för Emil, publicerad på
+`/foraldrapanel/mr-raccoon/`. Den visar bara tre barnkort med
+fjortondagarsstrippen och dagens läge, plus en ruta där han kan ge dem en
+engångsuppgift. Inga rapporter, inga notisutskick, inga poäng.
+
+Den läser `/admin/summary` och skriver till `/admin/extra` precis som den
+stora panelen, och vill ha samma nyckel. Vill du att han ska ha en egen,
+mer begränsad nyckel behöver workrarna lära sig en andra token, säg till.

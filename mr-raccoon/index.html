@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Mr. Raccoon 🦝</title>
+<meta name="theme-color" content="#85b84d" />
+<link rel="manifest" href="manifest.json?v=1" />
+<link rel="icon" href="icons/icon-192.png" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<link rel="stylesheet" href="style.css?v=1" />
+</head>
+<body>
+
+<!-- ===================== LÅSSKÄRM ===================== -->
+<section id="screen-lock" class="screen active">
+  <form id="lock-form" class="lock-card">
+    <h1>Mr. Raccoon 🦝</h1>
+    <p class="muted">Skriv in nyckeln en gång, sen minns den här telefonen den.</p>
+    <input id="key-input" type="password" autocomplete="current-password" placeholder="Nyckel" />
+    <button type="submit" class="btn-primary">Lås upp</button>
+    <p id="lock-error" class="error" hidden></p>
+  </form>
+</section>
+
+<!-- ===================== PANELEN ===================== -->
+<section id="screen-panel" class="screen">
+
+  <header class="topbar">
+    <div>
+      <h1 class="brand">Mr. Raccoon 🦝</h1>
+      <p class="muted small" id="updated">Hämtar...</p>
+    </div>
+    <button id="refresh" class="icon-btn" title="Uppdatera">↻</button>
+  </header>
+
+  <main id="cards" class="cards"></main>
+
+  <!-- ===================== GE EN UPPGIFT ===================== -->
+  <section class="composer">
+    <h2>Ge en uppgift</h2>
+    <p class="muted small">Den dyker upp i barnets app den dag du väljer, utöver deras vanliga lista.</p>
+
+    <label class="field">
+      <span>Uppgift</span>
+      <input id="extra-text" type="text" maxlength="80" placeholder="Till exempel: hjälp till med disken" />
+    </label>
+
+    <div class="field-row">
+      <label class="field small-field">
+        <span>Ikon</span>
+        <input id="extra-emoji" type="text" maxlength="4" value="⭐" />
+      </label>
+      <label class="field">
+        <span>Dag</span>
+        <select id="extra-date"></select>
+      </label>
+    </div>
+
+    <div id="extra-targets" class="targets"></div>
+
+    <div class="composer-row">
+      <button id="extra-btn" class="btn-primary">Lägg till</button>
+      <span id="extra-status" class="small"></span>
+    </div>
+
+    <div id="extra-list" class="extra-list"></div>
+  </section>
+
+  <footer class="footer">
+    <button id="forget" class="text-btn">Glöm nyckeln på den här telefonen</button>
+  </footer>
+
+</section>
+
+<div id="tooltip" class="tooltip" hidden></div>
+
+<script src="app.js?v=1"></script>
+</body>
+</html>
