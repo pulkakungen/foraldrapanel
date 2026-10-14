@@ -355,3 +355,33 @@ input:focus, textarea:focus { outline: none; border-color: var(--c1); }
 .grave-icon { font-size: 1.6rem; line-height: 1; }
 .grave-text { display: flex; flex-direction: column; gap: 4px; }
 .grave-text strong { color: var(--text-primary); }
+
+/* ---------- hela uppgiftslistan ---------- */
+.schedule h4.sched-head {
+  margin: 12px 0 4px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+}
+.schedule h4.sched-head:first-of-type { margin-top: 6px; }
+.schedule ul { margin: 0; padding: 0; list-style: none; }
+.sched-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 8px;
+  align-items: baseline;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--line);
+}
+.sched-row:last-child { border-bottom: none; }
+.sched-when, .sched-reward {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.sched-reward {
+  padding: 1px 7px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+}

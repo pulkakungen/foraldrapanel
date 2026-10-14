@@ -48,6 +48,9 @@ const APPS = [
   }
 ];
 
+// Så här visas belöningen i uppgiftslistan.
+const BELONING = { food: "mat", love: "kärlek", both: "mat + kärlek", none: "inget" };
+
 let adminKey = localStorage.getItem(KEY_STORAGE) || "";
 let summaries = {};
 
@@ -242,6 +245,37 @@ function renderCard(app) {
       ul.append(li);
     });
     details.append(ul);
+    card.append(details);
+  }
+
+  // hela uppgiftslistan, grupperad per del av dagen
+  if (Array.isArray(d.schedule) && d.schedule.length) {
+    const details = el("details", "tasks schedule");
+    details.append(el("summary", "", "Alla uppgifter (" + d.schedule.length + ")"));
+
+    const ordning = [];
+    const perSektion = new Map();
+    d.schedule.forEach((rad) => {
+      const namn = rad.section || "Uppgifter";
+      if (!perSektion.has(namn)) {
+        perSektion.set(namn, []);
+        ordning.push(namn);
+      }
+      perSektion.get(namn).push(rad);
+    });
+
+    ordning.forEach((namn) => {
+      details.append(el("h4", "sched-head", namn));
+      const ul = el("ul");
+      perSektion.get(namn).forEach((rad) => {
+        const li = el("li", "sched-row");
+        li.append(el("span", "sched-text", rad.text));
+        li.append(el("span", "sched-when", rad.when || ""));
+        li.append(el("span", "sched-reward", BELONING[rad.reward] || ""));
+        ul.append(li);
+      });
+      details.append(ul);
+    });
     card.append(details);
   }
 
