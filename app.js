@@ -146,8 +146,37 @@ function renderCard(app) {
 
   const d = res.data;
 
+  if (d.dead) head.append(el("span", "pill dead", "⚰️ Djuret har dött"));
   head.append(el("span", "pill " + (d.notifications ? "on" : "off"), d.notifications ? "Notiser på" : "Notiser av"));
   card.append(head);
+
+  // Ett dött djur får ett eget kort. Nivå, streak och matnivåer hör till ett
+  // liv som är över och skulle bara se ut som att allt rullar på.
+  if (d.dead) {
+    card.classList.add("is-dead");
+    const banner = el("div", "grave-banner");
+    banner.append(el("span", "grave-icon", "⚰️"));
+    const txt = el("div", "grave-text");
+    txt.append(el("strong", "", (d.petName || "Djuret") + " har dött"));
+    txt.append(
+      el(
+        "span",
+        "muted small",
+        "Efter " +
+          (d.deadAfterDays || 14) +
+          " dagar utan ett enda besök. Appen visar en gravsten tills hen trycker på Börja om, och då startar allt från nivå ett med ett nytt djur."
+      )
+    );
+    banner.append(txt);
+    card.append(banner);
+
+    const sista = el("div", "stats");
+    sista.append(el("span", "pill", "Senast i appen: " + sedan(d.lastSyncAt)));
+    if (d.level) sista.append(el("span", "pill", "Hann till nivå " + d.level));
+    card.append(sista);
+    card.append(renderLinks(app, d));
+    return card;
+  }
 
   // dagens läge
   const today = el("div", "today");
@@ -218,6 +247,12 @@ function renderCard(app) {
 
   if (d.affirmation) card.append(el("p", "muted small", d.affirmation));
 
+  card.append(renderLinks(app, d));
+
+  return card;
+}
+
+function renderLinks(app, d) {
   const links = el("div", "links");
   const med = (path) => app.url + path + (adminKey ? (path.includes("?") ? "&" : "?") + "key=" + encodeURIComponent(adminKey) : "");
   const lank = (text, path) => {
@@ -245,9 +280,7 @@ function renderCard(app) {
   }
   links.append(lank("Status", "/admin/status"));
   if (app.report) links.append(lank("Rapport", "/report"));
-  card.append(links);
-
-  return card;
+  return links;
 }
 
 function render() {

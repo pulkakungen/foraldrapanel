@@ -157,6 +157,8 @@ input:focus, textarea:focus { outline: none; border-color: var(--c1); }
 .pill.on { color: var(--good); border-color: color-mix(in srgb, var(--good) 45%, transparent); }
 .pill.off { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 45%, transparent); }
 .pill.warn { color: var(--warn); border-color: color-mix(in srgb, var(--warn) 45%, transparent); }
+/* ett dött djur ska synas direkt i kortet */
+.pill.dead { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 60%, transparent); background: color-mix(in srgb, var(--bad) 14%, var(--surface-0)); }
 
 /* dagens rad */
 .today {
@@ -337,3 +339,19 @@ input:focus, textarea:focus { outline: none; border-color: var(--c1); }
   padding: 2px 6px;
 }
 .extra-item button:hover { color: var(--bad); }
+
+/* ---------- dött djur ---------- */
+.card.is-dead { opacity: 0.95; }
+.grave-banner {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin: 12px 0 4px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--bad) 40%, transparent);
+  background: color-mix(in srgb, var(--bad) 10%, var(--surface-0));
+}
+.grave-icon { font-size: 1.6rem; line-height: 1; }
+.grave-text { display: flex; flex-direction: column; gap: 4px; }
+.grave-text strong { color: var(--text-primary); }
