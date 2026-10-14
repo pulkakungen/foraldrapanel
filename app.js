@@ -314,7 +314,43 @@ function renderLinks(app, d) {
   }
   links.append(lank("Status", "/admin/status"));
   if (app.report) links.append(lank("Rapport", "/report"));
+
+  // Döda eller återuppliva djuret. Bara apparna som har gravsten.
+  if (d.supportsKill) {
+    if (d.dead) {
+      const b = el("button", "link-btn", "Ge nytt liv");
+      b.addEventListener("click", () => kommando(app, b, "/admin/kill?revive=1", null));
+      links.append(b);
+    } else {
+      const b = el("button", "link-btn danger", "Döda djuret");
+      b.addEventListener("click", () =>
+        kommando(
+          app,
+          b,
+          "/admin/kill",
+          (d.petName || "Djuret") + " dör och appen visar en gravsten tills hen börjar om från nivå ett. Säker?"
+        )
+      );
+      links.append(b);
+    }
+  }
   return links;
+}
+
+async function kommando(app, knapp, path, fraga) {
+  if (fraga && !confirm(fraga)) return;
+  const text = knapp.textContent;
+  knapp.disabled = true;
+  knapp.textContent = "...";
+  try {
+    const res = await fetch(app.url + path, { method: "POST", headers: headers() });
+    if (!res.ok) throw new Error(res.status);
+    await loadAll();
+  } catch (e) {
+    knapp.disabled = false;
+    knapp.textContent = text;
+    alert("Det gick inte: " + e.message);
+  }
 }
 
 function render() {
