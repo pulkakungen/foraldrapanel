@@ -150,6 +150,20 @@ function ritaKort(barn) {
     kort.append(axel);
   }
 
+  // dagens uppgifter - bara det som gäller idag, inte hela schemat
+  if (Array.isArray(d.tasks) && d.tasks.length) {
+    const details = el("details", "tasks");
+    details.append(el("summary", "", "Dagens uppgifter"));
+    const ul = el("ul");
+    d.tasks.forEach((t) => {
+      const li = el("li", t.done ? "done" : "");
+      li.append(el("span", "mark", t.done ? "✓" : "○"), el("span", "", t.text));
+      ul.append(li);
+    });
+    details.append(ul);
+    kort.append(details);
+  }
+
   return kort;
 }
 

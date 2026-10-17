@@ -140,6 +140,26 @@ input[type="password"], input[type="text"], select {
 
 .axis { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-svag); margin-top: 4px; }
 
+.tasks {
+  margin-top: 12px;
+  border-top: 1px solid var(--kant);
+  padding-top: 10px;
+}
+.tasks summary {
+  cursor: pointer;
+  color: var(--text-svag);
+  font-size: 0.85rem;
+  list-style: none;
+}
+.tasks summary::-webkit-details-marker { display: none; }
+.tasks summary::before { content: "▸ "; }
+.tasks[open] summary::before { content: "▾ "; }
+.tasks ul { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.tasks li { font-size: 0.85rem; color: var(--text-svag); display: flex; gap: 8px; }
+.tasks li .mark { width: 14px; flex-shrink: 0; }
+.tasks li.done .mark { color: var(--stapel); }
+.tasks li.done span:last-child { color: var(--text-svag); text-decoration: line-through; }
+
 /* ------------------------- ge en uppgift ------------------------- */
 
 .composer {
