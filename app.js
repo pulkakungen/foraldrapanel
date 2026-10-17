@@ -235,7 +235,12 @@ function renderCard(app) {
     card.append(strip);
   }
 
-  // dagens lista
+  // dagens lista. Är den tom har appen inte synkat idag, och det ska synas
+  // i stället för att sektionen bara uteblir.
+  if (!Array.isArray(d.tasks) || !d.tasks.length) {
+    card.append(el("p", "muted small", "Dagens lista har inte synkats idag. Den fylls i när appen öppnas."));
+  }
+
   if (Array.isArray(d.tasks) && d.tasks.length) {
     const details = el("details", "tasks");
     details.append(el("summary", "", "Dagens uppgifter"));
