@@ -138,8 +138,10 @@ function ritaKort(barn) {
       if (!dag.total) stapel.classList.add("empty");
       stapel.style.height = Math.max(4, kvot * 100) + "%";
       hallare.append(stapel);
-      hallare.addEventListener("pointerenter", (e) => visaTooltip(e, barn, dag));
-      hallare.addEventListener("pointerleave", doljTooltip);
+      hallare.addEventListener("click", (e) => {
+        e.stopPropagation();
+        visaTooltip(hallare, barn, dag);
+      });
       strip.append(hallare);
     });
     kort.append(strip);
@@ -177,20 +179,47 @@ function rita() {
 
 /* --------------------------- tooltip --------------------------- */
 
-function visaTooltip(e, barn, dag) {
+let aktivStapel = null;
+
+function visaTooltip(barEl, barn, dag) {
+  if (aktivStapel === barEl) {
+    doljTooltip();
+    return;
+  }
+  aktivStapel = barEl;
   const t = document.getElementById("tooltip");
   t.innerHTML = "";
   t.append(el("strong", "", barn.namn + " " + kortDatum(dag.date)));
-  t.append(el("div", "", dag.total ? `${dag.done} av ${dag.total} avbockade` : "inget loggat den dagen"));
+
+  if (Array.isArray(dag.tasks) && dag.tasks.length) {
+    const ul = el("ul", "t-tasks");
+    dag.tasks.forEach((task) => {
+      const li = el("li", task.done ? "done" : "");
+      li.append(el("span", "mark", task.done ? "✓" : "○"), el("span", "", task.text));
+      ul.append(li);
+    });
+    t.append(ul);
+  } else {
+    t.append(el("div", "", dag.total ? `${dag.done} av ${dag.total} avbockade` : "inget loggat den dagen"));
+  }
+
   t.hidden = false;
-  const r = e.currentTarget.getBoundingClientRect();
-  t.style.left = Math.min(window.innerWidth - 170, Math.max(8, r.left)) + "px";
-  t.style.top = r.top + window.scrollY - 54 + "px";
+  const r = barEl.getBoundingClientRect();
+  t.style.left = Math.min(window.innerWidth - 8 - t.offsetWidth, Math.max(8, r.left)) + "px";
+  t.style.top = Math.max(8, r.top - t.offsetHeight - 10) + "px";
 }
 
 function doljTooltip() {
   document.getElementById("tooltip").hidden = true;
+  aktivStapel = null;
 }
+
+document.addEventListener("click", (e) => {
+  const t = document.getElementById("tooltip");
+  if (t.hidden) return;
+  if (aktivStapel && aktivStapel.contains(e.target)) return;
+  doljTooltip();
+});
 
 /* --------------------------- ge en uppgift --------------------------- */
 

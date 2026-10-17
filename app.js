@@ -226,9 +226,10 @@ function renderCard(app) {
       if (!dag.total) bar.classList.add("empty");
       bar.style.height = Math.max(4, andelDag * 100) + "%";
       wrap.append(bar);
-      wrap.addEventListener("mouseenter", (e) => visaTooltip(e, dag));
-      wrap.addEventListener("mousemove", flyttaTooltip);
-      wrap.addEventListener("mouseleave", doljTooltip);
+      wrap.addEventListener("click", (e) => {
+        e.stopPropagation();
+        visaTooltip(wrap, dag);
+      });
       strip.append(wrap);
     });
     card.append(strip);
@@ -367,30 +368,56 @@ function render() {
    Tooltip på dagsstaplarna
    --------------------------------------------------------- */
 const tooltip = () => document.getElementById("tooltip");
+let aktivStapel = null;
 
-function visaTooltip(e, dag) {
+function visaTooltip(barEl, dag) {
+  if (aktivStapel === barEl) {
+    doljTooltip();
+    return;
+  }
+  aktivStapel = barEl;
   const t = tooltip();
   t.innerHTML = "";
   t.append(el("span", "t-date", kortDatum(dag.date)));
-  t.append(
-    document.createTextNode(
-      dag.total ? dag.done + " av " + dag.total + " avbockade" + (dag.allDone ? ", allt klart" : "") : "ingen data"
-    )
-  );
+
+  if (Array.isArray(dag.tasks) && dag.tasks.length) {
+    const ul = el("ul", "t-tasks");
+    dag.tasks.forEach((task) => {
+      const li = el("li", task.done ? "done" : "");
+      li.append(el("span", "mark", task.done ? "✓" : "○"), el("span", "", task.text));
+      ul.append(li);
+    });
+    t.append(ul);
+  } else {
+    t.append(
+      document.createTextNode(
+        dag.total ? dag.done + " av " + dag.total + " avbockade" + (dag.allDone ? ", allt klart" : "") : "ingen data"
+      )
+    );
+  }
   t.hidden = false;
-  flyttaTooltip(e);
+  placeraTooltip(barEl);
 }
 
-function flyttaTooltip(e) {
+function placeraTooltip(barEl) {
   const t = tooltip();
-  const x = Math.min(e.clientX + 12, window.innerWidth - t.offsetWidth - 8);
-  t.style.left = x + "px";
-  t.style.top = Math.max(8, e.clientY - t.offsetHeight - 10) + "px";
+  const r = barEl.getBoundingClientRect();
+  const x = Math.min(r.left, window.innerWidth - t.offsetWidth - 8);
+  t.style.left = Math.max(8, x) + "px";
+  t.style.top = Math.max(8, r.top - t.offsetHeight - 10) + "px";
 }
 
 function doljTooltip() {
   tooltip().hidden = true;
+  aktivStapel = null;
 }
+
+document.addEventListener("click", (e) => {
+  const t = tooltip();
+  if (t.hidden) return;
+  if (aktivStapel && aktivStapel.contains(e.target)) return;
+  doljTooltip();
+});
 
 /* ---------------------------------------------------------
    Meddelanden

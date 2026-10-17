@@ -233,7 +233,7 @@ input[type="password"], input[type="text"], select {
 /* ------------------------- tooltip ------------------------- */
 
 .tooltip {
-  position: absolute;
+  position: fixed;
   z-index: 40;
   background: rgba(30, 52, 15, 0.95);
   color: #f4f8ec;
@@ -242,5 +242,10 @@ input[type="password"], input[type="text"], select {
   font-size: 12px;
   line-height: 1.35;
   pointer-events: none;
-  max-width: 180px;
+  max-width: 200px;
 }
+.tooltip[hidden] { display: none; }
+.tooltip .t-tasks { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
+.tooltip .t-tasks li { display: flex; gap: 6px; }
+.tooltip .t-tasks li .mark { width: 14px; flex-shrink: 0; }
+.tooltip .t-tasks li.done span:last-child { opacity: 0.7; text-decoration: line-through; }
