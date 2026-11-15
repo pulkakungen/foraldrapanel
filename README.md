@@ -83,6 +83,12 @@ Alla fyra apparna har ett demoläge, som nås med `?demo=1` i adressen.
 Det använder en egen sparning, synkar inte och rör inte notiserna, så du kan
 klicka runt utan att påverka barnets riktiga dag.
 
+## Extrauppgifter som inte blir gjorda
+
+En extrauppgift som inte bockas av följer med till nästa dag, och nästa,
+tills den blir gjord eller du tar bort den. Workern letar fjorton dagar
+bakåt. I panelen står det då "väntar sedan" och dagen den lades till.
+
 ## Cache
 
 `index.html` laddar `app.js?v=N` och `style.css?v=N`. Höj siffran när du ändrat

@@ -536,7 +536,7 @@ function renderExtraList() {
         el("span", "", t.emoji || "⭐"),
         el("span", "grow", t.text),
         el("span", "who", a.child),
-        el("span", klar ? "done" : "muted small", klar ? "klar" : "väntar")
+        el("span", klar ? "done" : "muted small", klar ? "klar" : t.fromDate ? "väntar sedan " + kortDatum(t.fromDate) : "väntar")
       );
       const bort = el("button", "", "×");
       bort.title = "Ta bort";
