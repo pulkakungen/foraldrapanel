@@ -124,6 +124,8 @@ function ritaKort(barn) {
 
   kort.append(el("p", "muted small", "Senast i appen: " + sedan(d.lastSyncAt)));
 
+  kort.append(ritaAktiva(d));
+
   // fjorton dagar bakåt: en stapel per dag, höjden är andel avbockat
   if (Array.isArray(d.history) && d.history.length) {
     const etikett = el("div", "strip-label");
@@ -155,7 +157,7 @@ function ritaKort(barn) {
   // dagens uppgifter - bara det som gäller idag, inte hela schemat
   if (Array.isArray(d.tasks) && d.tasks.length) {
     const details = el("details", "tasks");
-    details.append(el("summary", "", "Dagens uppgifter"));
+    details.append(el("summary", "", "Hela dagens lista"));
     const ul = el("ul");
     d.tasks.forEach((t) => {
       const li = el("li", t.done ? "done" : "");
@@ -167,6 +169,47 @@ function ritaKort(barn) {
   }
 
   return kort;
+}
+
+// Det som är kvar att göra just nu, alltid utfällt. Extrauppgifter som
+// appen inte hunnit synka läggs till från workerns lista.
+function ritaAktiva(d) {
+  const dagens = Array.isArray(d.tasks) ? d.tasks : [];
+  const extra = Array.isArray(d.extra) ? d.extra : [];
+  const extraById = new Map(extra.map((t) => [t.id, t]));
+  const kvar = dagens
+    .filter((t) => !t.done)
+    .map((t) => ({ text: t.text, fromDate: extraById.has(t.id) ? extraById.get(t.id).fromDate : null }));
+  extra.forEach((t) => {
+    if (!dagens.some((x) => x.id === t.id)) kvar.push({ text: (t.emoji ? t.emoji + " " : "") + t.text, fromDate: t.fromDate });
+  });
+
+  const box = el("div", "active-tasks");
+  box.append(el("h4", "active-head", "Aktiva uppgifter" + (kvar.length ? " (" + kvar.length + ")" : "")));
+  if (kvar.length) {
+    const ul = el("ul");
+    kvar.forEach((t) => {
+      const li = el("li");
+      li.append(el("span", "mark", "○"), el("span", "", t.text));
+      if (t.fromDate) li.append(el("span", "since", "sedan " + kortDatum(t.fromDate)));
+      ul.append(li);
+    });
+    box.append(ul);
+  } else if (dagens.length) {
+    box.append(el("p", "muted small", "Allt är gjort idag."));
+  }
+  if (!dagens.length) {
+    box.append(
+      el(
+        "p",
+        "muted small",
+        kvar.length
+          ? "Appen har inte öppnats idag, så bara extrauppgifterna syns. Resten fylls i när appen öppnas."
+          : "Appen har inte öppnats idag. Listan fylls i när den öppnas."
+      )
+    );
+  }
+  return box;
 }
 
 function rita() {

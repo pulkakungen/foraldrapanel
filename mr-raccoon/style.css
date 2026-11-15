@@ -249,3 +249,12 @@ input[type="password"], input[type="text"], select {
 .tooltip .t-tasks li { display: flex; gap: 6px; }
 .tooltip .t-tasks li .mark { width: 14px; flex-shrink: 0; }
 .tooltip .t-tasks li.done span:last-child { opacity: 0.7; text-decoration: line-through; }
+
+/* Aktiva uppgifter, alltid utfällda på kortet */
+.active-tasks { margin-top: 12px; }
+.active-tasks .active-head { margin: 0 0 6px; font-size: 0.85rem; font-weight: 600; }
+.active-tasks ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.active-tasks li { font-size: 0.85rem; display: flex; gap: 8px; align-items: baseline; }
+.active-tasks li .mark { width: 14px; flex-shrink: 0; }
+.active-tasks li .since { margin-left: auto; color: var(--text-svag); font-size: 0.75rem; white-space: nowrap; }
+.active-tasks p { margin: 0; }
